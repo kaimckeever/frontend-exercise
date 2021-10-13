@@ -1,50 +1,39 @@
 <template>
-  <div class="md-layout md-alignment-center">
-    <div
-      class="
-        md-layout-item md-medium-size-50 md-small-size-50 md-xsmall-size-100
-      "
-      v-if="!this.started"
-    >
-      <md-content>
-        <h1>Cognito Forms Quiz</h1>
-        <p>
-          You will be presented with a series of multiple choice questions, and
-          when you've answered all of the questions, you can see a summary of
-          your answers.
-        </p>
-        <button class="md-button" v-on:click="started = true">
-          Begin Quiz
-        </button>
-      </md-content>
+  <div class="m-2 mt-6 px-2">
+    <div v-if="!this.started" class="section is-medium is-fluid">
+      <h1 class="title">Cognito Forms Quiz</h1>
+      <h2 class="subtitle">
+        You will be presented with a series of multiple choice questions, and
+        when you've answered all of the questions, you can see a summary of your
+        answers.
+      </h2>
+      <b-button v-on:click="started = true">Begin Quiz</b-button>
     </div>
     <div
-      class="
-        md-layout-item md-medium-size-50 md-small-size-50 md-xsmall-size-100
-      "
       v-if="this.started && i < questions.length"
+      class="section is-medium is-fluid"
     >
-      <h1>{{ questions[i].text }}</h1>
-      <form>
-        <div v-for="ans in questions[i].answers" :key="ans">
-          <md-radio type="radio" name="ans" v-model="answer" :value="ans">
+      <h1 class="title">{{ questions[i].text }}</h1>
+      <section>
+        <div class="block" v-for="ans in questions[i].answers" :key="ans">
+          <b-radio name="ans" v-model="answer" :native-value="ans">
             {{ ans }}
-          </md-radio>
+          </b-radio>
         </div>
-      </form>
-      <button class="md-button" v-show="answer != ''" v-on:click="next()">
-        <div v-if="i == questions.length - 1">Submit</div>
-        <div v-else>Next</div>
-      </button>
+      </section>
+      <b-button v-show="answer != ''" v-on:click="next()">Next</b-button>
     </div>
-    <div v-if="this.started && i >= questions.length">
-      <md-content>
-        <h1>Summary</h1>
-        <div v-for="(q, index) in questions" :key="q">
-          <h2>{{ q.text }}</h2>
+    <div
+      v-if="this.started && i >= questions.length"
+      class="container is-fluid"
+    >
+      <h1 class="title">Summary</h1>
+      <div class="columns">
+        <div class="column" v-for="(q, index) in questions" :key="q">
+          <h2 class="subtitle">{{ index + 1 }}. {{ q.text }}</h2>
           <p>{{ answerList[index] }}</p>
         </div>
-      </md-content>
+      </div>
     </div>
   </div>
 </template>
