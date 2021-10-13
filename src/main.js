@@ -9,10 +9,6 @@ import 'buefy/dist/buefy.css'
 
 Vue.use(Buefy)
 Vue.config.productionTip = false;
-Vue.use(MdButton)
-Vue.use(MdContent)
-Vue.use(MdRadio)
-Vue.use(MdLayout)
 
 new Vue({
   render: h => h(Quiz, { props: { questions } })
