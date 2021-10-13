@@ -37,6 +37,7 @@ export default {
     next: function () {
       this.answerList.push(this.answer);
       this.i++;
+      this.answer = "";
     },
   },
 };
