@@ -14,7 +14,10 @@
       <button v-show="answer != ''" v-on:click="next()">Next</button>
     </div>
     <div v-if="this.started && i >= questions.length">
-      {{ answerList }}
+      <div v-for="(q, index) in questions" :key="q">
+        <b>{{ q.text }}</b>
+        <p>{{ answerList[index] }}</p>
+      </div>
     </div>
   </div>
 </template>
