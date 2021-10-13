@@ -3,15 +3,23 @@
     <div v-if="!this.started">
       <button v-on:click="started = true">Begin Quiz</button>
     </div>
-    <div v-if="this.started">
-      <Question :question="questions[i]"></Question>
-      <button>Next</button>
+    <div v-if="this.started && i < questions.length">
+      <h1>{{ questions[i].text }}</h1>
+      <form>
+        <div v-for="ans in questions[i].answers" :key="ans">
+          <input type="radio" name="ans" v-model="answer" :value="ans" />
+          <label>{{ ans }}</label>
+        </div>
+      </form>
+      <button v-show="answer != ''" v-on:click="next()">Next</button>
+    </div>
+    <div v-if="this.started && i >= questions.length">
+      {{ answerList }}
     </div>
   </div>
 </template>
 
 <script>
-import Question from "./components/Question.vue";
 export default {
   props: {
     questions: {
@@ -19,11 +27,14 @@ export default {
       required: true,
     },
   },
-  components: {
-    Question,
-  },
   data() {
-    return { started: false, i: 0 };
+    return { started: false, i: 0, answer: "", answerList: [] };
+  },
+  methods: {
+    next: function () {
+      this.answerList.push(this.answer);
+      this.i++;
+    },
   },
 };
 </script>
